@@ -101,4 +101,18 @@ class ApiService {
 
     return response.statusCode == 200;
   }
+
+  // ---------- UPDATE TASK----------
+  static Future<bool> updateTask(String sessionToken, String objectId, String title) async {
+    final h = {
+      ...headers,
+      "X-Parse-Session-Token": sessionToken,
+    };
+
+    final url = Uri.https(host, "/classes/Task/$objectId");
+
+    final response = await http.put(url, headers: h, body: jsonEncode({"title": title}));
+
+    return response.statusCode == 200;
+  }
 }
